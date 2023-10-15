@@ -1,36 +1,79 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Example.Web</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿<!-- Topbar Start -->
+<div class="container-fluid bg-light text-info ps-5 pe-0 d-none d-lg-block">
+    <div class="row gx-0">
+        <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
+            <div class="d-inline-flex align-items-center">
+                <small class="py-2">
+                    <i class="oi oi-clock text-dark me-2"></i>Opening Hours: Mon -
+                    Sat : 4.00 pm - 9.00 pm, Sunday Closed
+                </small>
+            </div>
+        </div>
+        <div class="col-md-6 text-center text-lg-end">
+            <div class="position-relative d-inline-flex align-items-center bg-success text-white top-shape px-5 rounded-pill">
+                <div class="me-3 pe-3 border-end py-2">
+                    <p class="m-0">
+                        <i class="oi oi-envelope-open me-2"></i>thedentalhealers@gmail.com
+                    </p>
+                </div>
+                <div class="me-3 pe-3 border-end py-2">
+                    <p class="m-0"><i class="oi oi-phone me-2"></i>0336 3809324</p>
+                </div>
+                <div class="py-2">
+                    <p class="m-0"><i class="oi oi-phone me-2"></i>0321 2679957</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
+<!-- Topbar End -->
+<nav class="navbar navbar-expand-lg bg-transparent navbar-light nav shadow-sm px-3 py-3 sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand m-0" id="Logo"><img src="_content/Example.WebComponents/techlogo.png" alt="Logo" style="width: 200px"  /></a>
+        <button class="navbar-toggler @NavButtonCssClass" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-label="Toggle navigation" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse @NavBarCssClass bg-transparent text-white" id="navbarCollapse content" @onclick="ToggleNavMenu">
+            <ul class="navbar-nav ms-auto py-0">
+                <li class="nav-item">
+                    <NavLink class="nav-item nav-link text-success" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-item nav-link text-success" href="counter">
+                        <span class="oi oi-monitor" aria-hidden="true"></span> Build your PC
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-item nav-link text-success" href="fetchdata">
+                        <span class="oi oi-list" aria-hidden="true"></span> Products
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-item nav-link text-success" href="fetchdata">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Bundles
+                    </NavLink>
+                </li>
+                <li class="nav-item">
+                    <NavLink class="nav-item nav-link text-success" href="fetchdata">
+                        <span class="oi oi-action-undo" aria-hidden="true"></span> Returns
+                    </NavLink>
+                </li>
+                <a class="btn btn-info text-decoration-none text-white py-2 px-4 ms-4 wow zoomIn shadow rounded-pill"
+                   href="contact.html">
+                    Contact Us
+                </a>
+            </ul>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
-    </nav>
-</div>
+    </div>
+</nav>
 
 @code {
     private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string? NavBarCssClass => collapseNavMenu ? null : "show";
+    private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
 
     private void ToggleNavMenu()
     {
