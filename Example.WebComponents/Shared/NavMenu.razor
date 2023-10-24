@@ -1,4 +1,7 @@
-﻿<!-- Topbar Start -->
+﻿@using Microsoft.AspNetCore.Components.Forms
+@using Example.WebComponents.Data
+
+<!-- Topbar Start -->
 <div class="container-fluid bg-light text-info ps-5 pe-0 d-none d-lg-block">
     <div class="row gx-0">
         <div class="col-md-6 text-center text-lg-start mb-2 mb-lg-0">
@@ -37,7 +40,7 @@
         <div class="collapse navbar-collapse @NavBarCssClass bg-transparent text-white" id="navbarCollapse content" @onclick="ToggleNavMenu">
             <ul class="navbar-nav ms-auto py-0">
                 <li class="nav-item">
-                    <NavLink class="nav-item nav-link text-success" href="" Match="NavLinkMatch.All">
+                    <NavLink class="nav-item nav-link text-success" href="/" Match="NavLinkMatch.All">
                         <span class="oi oi-home" aria-hidden="true"></span> Home
                     </NavLink>
                 </li>
@@ -52,7 +55,7 @@
                     </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-item nav-link text-success" href="fetchdata">
+                    <NavLink class="nav-item nav-link text-success" href="test">
                         <span class="oi oi-list-rich" aria-hidden="true"></span> Bundles
                     </NavLink>
                 </li>
@@ -61,12 +64,38 @@
                         <span class="oi oi-action-undo" aria-hidden="true"></span> Returns
                     </NavLink>
                 </li>
-                <a class="btn btn-info text-decoration-none text-white py-2 px-4 ms-4 wow zoomIn shadow rounded-pill"
-                   href="contact.html">
-                    Contact Us
-                </a>
+                <a class="text-decoration-none text-success py-2 px-4 ms-4 shadow rounded-pill" @onclick:preventDefault @onclick="OpenLoginPopup"
+                   href="#"><b>Portal</b></a>
             </ul>
         </div>
+        <!-- Popup -->
+        @if (showLoginPopup)
+        {
+            <div class="position-fixed top-0 start-50 translate-middle-x ">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content"> @*Add "login-card" for blur effect*@
+                        <div class="modal-header">
+                            <h5 class="modal-title">Login</h5>
+                            <button type="button" class="btn-close" @onclick="CloseLoginPopup"></button>
+                        </div>
+                        <div class="modal-body">
+                            <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+                                <div class="mb-3">
+                                    <label for="usernameInput" class="form-label text-black">Username</label>
+                                    <InputText id="usernameInput" class="form-control" @bind-Value="loginModel.Username" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="passwordInput" class="form-label text-black">Password</label>
+                                    <InputText id="passwordInput" type="password" class="form-control" @bind-Value="loginModel.Password" />
+                                </div>
+                                <button type="submit" class="text-decoration-none bg-light bg-opacity-50 font-weight-bold text-success py-2 px-4 shadow rounded-pill" @onclick="NavigateToPage">Login</button>
+                            </EditForm>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- End Popup -->
     </div>
 </nav>
 
@@ -78,5 +107,33 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private bool showLoginPopup = false;
+    private LoginModel loginModel = new LoginModel();
+
+    private void OpenLoginPopup()
+    {
+        showLoginPopup = true;
+    }
+
+    private void CloseLoginPopup()
+    {
+        showLoginPopup = false;
+    }
+
+    private void HandleLogin()
+    {
+        // Handle the login logic here
+        // You can access the loginModel.Username and loginModel.Password properties
+        // to perform authentication or any other necessary actions
+        // After handling the login, you can close the popup using CloseLoginPopup()
+    }
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    private void NavigateToPage()
+    {
+        NavigationManager.NavigateTo("/counter");
     }
 }

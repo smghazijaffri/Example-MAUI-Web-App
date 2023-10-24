@@ -120,10 +120,14 @@ a, .btn-link {
     z-index: 99999;
 }
 
-#spinner.show {
-    transition: opacity 0.5s ease-out, visibility 0s linear 0s;
-    visibility: visible;
-    opacity: 1;
-}
+    #spinner.show {
+        transition: opacity 0.5s ease-out, visibility 0s linear 0s;
+        visibility: visible;
+        opacity: 1;
+    }
 
+
+
+
+/*Login Page*/
 

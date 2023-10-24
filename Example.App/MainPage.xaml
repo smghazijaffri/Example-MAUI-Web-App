@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<ContentPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:wc="clr-namespace:Example.WebComponents;assembly=Example.WebComponents"
              xmlns:pages="clr-namespace:Example.WebComponents.Pages;assembly=Example.WebComponents"

@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.Web", "Example.Web\Example.Web.csproj", "{D60FC994-22A7-447E-8763-1DF205839F3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.Web", "Example.Web\Example.Web.csproj", "{D60FC994-22A7-447E-8763-1DF205839F3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.WebComponents", "Example.WebComponents\Example.WebComponents.csproj", "{1D690BE2-D4AC-4CC1-98BB-4EBCB02DAB0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.WebComponents", "Example.WebComponents\Example.WebComponents.csproj", "{1D690BE2-D4AC-4CC1-98BB-4EBCB02DAB0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.App", "Example.App\Example.App.csproj", "{8F3D944C-15B4-4AA1-A406-604BAF19CE81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example.App", "Example.App\Example.App.csproj", "{8F3D944C-15B4-4AA1-A406-604BAF19CE81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
