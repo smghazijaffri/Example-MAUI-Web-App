@@ -40,3 +40,6 @@ function closeLoginModal() {
     $('#loginModal').modal('hide');
 }
 
+window.runningFormatter = function (value, row, index) {
+    return index + 1;
+};
