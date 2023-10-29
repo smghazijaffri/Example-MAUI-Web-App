@@ -196,3 +196,33 @@ a, .btn-link {
     font-style: italic;
     color: gray;
 }
+
+.indicator-pill {
+    display: inline-block;
+    padding: 4px 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.indicator-pill {
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.orange {
+    background-color: orange;
+    color: white;
+}
+
+.red {
+    background-color: red;
+    color: white;
+}
+
+.green {
+    background-color: green;
+    color: white;
+}
+

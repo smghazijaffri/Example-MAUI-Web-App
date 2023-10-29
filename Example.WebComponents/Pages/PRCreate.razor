@@ -1,13 +1,26 @@
 ﻿@page "/purchaserequisition/create"
 
-<div class="row p-3">
+<div class="row p-3 align-items-center">
     <div class="col-6">
-        <h3>Create Purchase Requisition</h3>
+        <h3>
+            Create Purchase Requisition
+            <span class="@(IsApproved ? "indicator-pill whitespace-nowrap green" : (IsDraft ? "indicator-pill whitespace-nowrap red" : "indicator-pill whitespace-nowrap orange"))">
+                <span>@(IsApproved ? "Approved" : (IsDraft ? "Draft" : "Not Saved"))</span>
+            </span>
+        </h3>
     </div>
     <div class="col-6 d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary rounded-pill">Submit</button>
+       @*  <button type="submit" class="btn btn-primary rounded-3 text-sm-center" @onclick="ToggleApproval">@GetSubmitButtonText()</button> *@
+        @if (!IsApproved)
+        {
+            <button type="submit" class="btn btn-primary rounded-3 text-sm-center" @onclick="ToggleApproval">
+                @GetSubmitButtonText()
+            </button>
+        }
     </div>
 </div>
+
+
 <div class="row m-3 p-3 rounded-3 shadow-sm bg-light">
     <!-- Purchase Requisition Form -->
     <form class="row g-3">
@@ -31,25 +44,6 @@
             <label class="form-label">Vendor</label>
             <input type="text" class="form-control">
         </div>
-        @* <div class="col-md-4">
-        <label class="form-label">State</label>
-        <select class="form-select">
-        <option selected>Choose...</option>
-        <option>...</option>
-        </select>
-        </div>
-        <div class="col-md-2">
-        <label class="form-label">Zip</label>
-        <input type="text" class="form-control">
-        </div> *@
-        @* <div class="col-12">
-        <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck">
-        <label class="form-check-label" for="gridCheck">
-        Check me out
-        </label>
-        </div>
-        </div> *@
     </form>
 </div>
 
@@ -110,6 +104,57 @@
 
 
 @code {
+    private bool IsApproved { get; set; } = false;
+    private bool IsDraft { get; set; } = false;
+    private bool IsSaving { get; set; } = false;
+
+    private string GetSubmitButtonText()
+    {
+        if (IsApproved)
+        {
+            return "Approved";
+        }
+        else if (IsDraft)
+        {
+            return "Submit";
+        }
+        else
+        {
+            return "Save";
+        }
+    }
+
+    private void ToggleApproval()
+    {
+        if (IsDraft)
+        {
+            IsDraft = false;
+            IsApproved = true;
+            IsSaving = false;
+        }
+        else if (!IsSaving)
+        {
+            IsDraft = true;
+        }
+    }
+
+    // Add the Save logic here when the Save button is clicked.
+    // You can update the IsDraft and IsSaving flags accordingly.
+    private async Task Save()
+    {
+        // Your save logic here.
+        // Example:
+        // await YourDataService.SavePurchaseRequisitionAsync(); // Replace with your actual save method.
+        IsDraft = true;
+        IsSaving = true;
+
+        // Simulate a delay (remove this line in your actual code).
+        await Task.Delay(1000);
+
+        IsSaving = false;
+    }
+
+
     private List<Item> Items { get; set; } = new List<Item>();
 
     private void AddRow()
