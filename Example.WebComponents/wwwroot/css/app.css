@@ -219,7 +219,6 @@ a, .btn-link {
 .green {
     background-color: green;
     color: white;
-    font-size: 5px
 }
 
 
@@ -275,7 +274,7 @@ a, .btn-link {
     cursor: pointer;
 }
 
-.btn {
+.btnpc {
     background: #EEECF7;
     border: 0;
     color: #5535F0;
@@ -286,11 +285,11 @@ a, .btn-link {
     transition: all 0.2s ease;
 }
 
-    .btn:hover {
+    .btnpc:hover {
         background: #441CFF;
     }
 
-    .btn:focus {
+    .btnpc:focus {
         background: #441CFF;
         outline: 0;
     }
