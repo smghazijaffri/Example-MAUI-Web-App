@@ -33,17 +33,13 @@
             <input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control">
         </div>
         <div class="col-md-6">
-            <label class="form-label">Company</label>
-            <input type="text" class="form-control" placeholder="TechnoTrek">
-        </div>
-        <div class="col-md-6">
-            <label class="form-label">Required By</label>
-            <input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control">
-        </div>
-        <div class="col-md-6">
             <label class="form-label">Vendor</label>
             <input type="text" class="form-control">
         </div>
+        @* <div class="col-md-6">
+            <label class="form-label">Required By</label>
+            <input type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" min="@DateTime.Now.ToString("yyyy-MM-dd")" class="form-control">
+        </div> *@
     </form>
 </div>
 
@@ -53,23 +49,23 @@
         <table class="table table-bordered border-primary">
             <thead>
                 <tr>
-                    <th class="col col-auto">
-                        <input type="checkbox" @onchange="ToggleAllRowsSelection" />
+                    <th class="col col-auto" style="width: 50px;">
+                        @* <input type="checkbox" @onchange="ToggleAllRowsSelection" /> *@
                         No.
                     </th>
                     <th class="col col-auto">
                         Item
                     </th>
-                    <th class="col col-auto">
+                    <th class="col col-auto" style="width: 70px;">
                         Quantity
                     </th>
-                    <th class="col col-auto">
+                    <th class="col col-auto text-center" style="width: 150px;">
                         UOM
                     </th>
-                    <th class="col col-auto">
+                    <th class="col col-auto" style="width: 150px;">
                         Required By
                     </th>
-                    <th class="col col-auto">Actions</th> <!-- Add a header for actions -->
+                    @* <th class="col col-auto">Actions</th> <!-- Add a header for actions --> *@
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -79,18 +75,25 @@
                     var item = Items[index];
                     <tr>
                         <td>
-                            <input type="checkbox" @bind="item.Selected" />
-                            @(index + 1)
+                            <div style="display: flex; align-items: center;">
+                                <input type="checkbox" class="me-1" @bind="item.Selected" />
+                                @(index + 1)
+                                <button class="ms-2 btn btn-sm btn-danger" @onclick:preventDefault @onclick="() => DeleteRow(index)" style="display: @(item.Selected ? "block" : "none")">Delete</button>
+                            </div>
                         </td>
                         <td><input type="text" class="form-control" @bind="item.Name" /></td>
-                        <td><input type="number" class="form-control" @bind="item.Quantity" /></td>
-                        <td><input type="text" class="form-control" @bind="item.UOM" /></td>
+                        <td><input type="text" class="form-control" @bind="item.Quantity" /></td>
+                        <td>
+                            <input type="text" list="uomOptions" class="form-control" @bind="item.UOM" />
+                            <datalist id="uomOptions">
+                                <option value="Piece"></option>
+                                <option value="Each"></option>
+                                <option value="Box"></option>
+                                <!-- Add more UOM options as needed -->
+                            </datalist>
+                        </td>
                         <td>
                             <input type="date" class="form-control" @bind="item.RequiredBy" min="@DateTime.Now.ToString("dd-MM-yyyy")" />
-                        </td>
-
-                        <td>
-                            <button class="btn btn-danger" @onclick:preventDefault @onclick="() => DeleteRow(index)" style="display: @(item.Selected ? "block" : "none")">Delete</button>
                         </td>
                     </tr>
                 }
@@ -184,14 +187,14 @@
         public Task HandleEventAsync(EventCallbackWorkItem item, object arg) => Task.CompletedTask;
     }
 
-    private void ToggleAllRowsSelection()
-    {
-        bool selectAll = Items.All(item => item.Selected);
-        foreach (var item in Items)
-        {
-            item.Selected = !selectAll;
-        }
-    }
+    // private void ToggleAllRowsSelection()
+    // {
+    //     bool selectAll = Items.All(item => item.Selected);
+    //     foreach (var item in Items)
+    //     {
+    //         item.Selected = !selectAll;
+    //     }
+    // }
 
     private class Item
     {
