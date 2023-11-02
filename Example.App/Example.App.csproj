@@ -33,6 +33,42 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\AppIcon\appicon.svg" />
+    <None Remove="Resources\AppIcon\appiconfg.svg" />
+    <None Remove="Resources\AppIcon\techlogo.svg" />
+    <None Remove="Resources\Fonts\OpenSans-Regular.ttf" />
+    <None Remove="Resources\Raw\AboutAssets.txt" />
+    <None Remove="Resources\Splash\splash.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\AppIcon\appicon.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Resources\AppIcon\appiconfg.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Resources\AppIcon\techlogo.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Resources\Fonts\OpenSans-Regular.ttf">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Resources\Raw\AboutAssets.txt">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Resources\Splash\splash.svg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Example.WebComponents\Example.WebComponents.csproj" />
   </ItemGroup>
 
