@@ -1,8 +1,11 @@
-﻿@page "/buildpc"
+﻿@page "/buildpc";
+@using static Example.WebComponents.Pages.CustomModal
+@using static Example.WebComponents.Pages.CustomerModal
+@inject Example.WebComponents.Data.Insert insert
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="card col-12 col-md-12 col-lg-8 p-5 border-danger bg-gradient shadow" style="border-radius: 2rem;">
+        <div class="card col-12 col-md-12 col-lg-6 p-5 border-danger bg-gradient shadow" style="border-radius: 2rem;">
             <div class="card-wrapper">
                 <div class="card-box align-center">
                     <h1 class="card-title mbr-fonts-style mb-4 display-1" style="font-family: 'Arial Rounded MT'; font-weight: 400; color: black;">
@@ -19,14 +22,14 @@
                 <div class="card-body m-2">
                     <h5 class="card-title">Pre-Builts</h5>
                     <p class="card-text">Choose from pre-built configurations</p>
-                    <NavLink href="counter" class="btn btnpc btn-primary m-1" Match="NavLinkMatch.All">Buy</NavLink>
+                    <NavLink href="#" class="btn btnpc btn-primary m-1" Match="NavLinkMatch.All">Buy</NavLink>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="container col-auto m-auto">
+<div class="container col-auto m-auto mb-4">
     <div class="row justify-content-center p-0 me-auto">
         <div class="col-md-3" title="Motherboard">
             <div class="shadow" style="border-radius: 2rem;">
@@ -36,10 +39,11 @@
                 <div class="card-body m-2">
                     <h5 class="card-title text-truncate">Motherboard</h5>
                     <p class="card-text">Choose your desired Motherboard</p>
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Motherboard"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
+
         <div class="col-md-3" title="Processor">
             <div class="shadow" style="border-radius: 2rem;">
                 <div class="container p-4">
@@ -49,7 +53,7 @@
                     <h5 class="card-title text-truncate">Processor</h5>
                     <p class="card-text">Choose your desired Processor</p>
 
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Processor"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
@@ -62,7 +66,7 @@
                     <h5 class="card-title text-truncate">Graphics Card</h5>
                     <p class="card-text">Choose your desired GPU</p>
 
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Graphics Card"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
@@ -75,7 +79,7 @@
                     <h5 class="card-title text-truncate">Gaming Case</h5>
                     <p class="card-text">Choose your desired Case</p>
 
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Gaming Case"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
@@ -88,7 +92,7 @@
                     <h5 class="card-title text-truncate">Memory</h5>
                     <p class="card-text">Choose your desired Memory</p>
 
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Memory"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
@@ -101,7 +105,7 @@
                     <h5 class="card-title text-truncate">Storage</h5>
                     <p class="card-text">Choose your desired Storage</p>
 
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Storage"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
@@ -114,7 +118,7 @@
                     <h5 class="card-title text-truncate">Power Supply</h5>
                     <p class="card-text">Choose your desired PSU</p>
 
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Power Supply"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
@@ -127,14 +131,48 @@
                     <h5 class="card-title text-truncate">Cooler</h5>
                     <p class="card-text">Choose your desired Fans</p>
 
-                    <a href="#" target="_blank" class="btn btnpc btn-primary m-1">Select</a>
+                    <NavLink class="btn btnpc btn-primary m-1" @onclick="@(args => ShowQuickView("Cooler"))" Match="NavLinkMatch.All">Select</NavLink>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- Include the InputModal component -->
+<CustomerModal @bind-IsVisible="IsVisible" OnSaveChanges="HandleInputModalSaveChanges" />
 
+<CustomModal Model="model" IsVisible="isQuickViewVisible" ComponentName="@selectedComponentName" />
 
 @code {
+    BuildPcViewModel model = new BuildPcViewModel();
     
+    bool isModalOpen = false;
+    private bool isQuickViewVisible = false;
+    private string selectedComponentName = " "; // You can set this dynamically
+
+    private void ShowQuickView(string val)
+    {
+        isModalOpen = true;
+        selectedComponentName = val;
+        isQuickViewVisible = true;
+    }
+
+    private bool IsVisible { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Set IsVisible to true when the component is initialized
+        IsVisible = true;
+    }
+
+    private async void HandleInputModalSaveChanges(BuildPcViewModel model)
+    {
+        // Handle the saved changes from the InputModal component
+        // For example, you can use the data in the model parameter to perform additional actions
+        // such as inserting data into the database.
+
+        // Insert data into Custom_Built table
+        await insert.InsertIntoCustomBuilt(model.Id, model.Name, model.Contact);
+
+        // Optionally, perform other actions based on the saved data
+    }
 }

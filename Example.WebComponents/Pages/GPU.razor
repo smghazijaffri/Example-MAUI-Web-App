@@ -1,0 +1,57 @@
+﻿@page "/graphics card";
+@inject Example.WebComponents.Data.Select select
+
+<section>
+    <div class="container py-5">
+        @if (Graphics != null)
+        {
+            <div class="d-flex flex-wrap">
+                @foreach (var values in Graphics)
+                {
+                    <div class="col-md-4 col-lg-4 col-xl-4 p-2">
+                        <div class="card text-black">
+                            <div class="card-body">
+                                <h5 class="card-title">@values.Brand</h5>
+                                <h5 class="card-title">@values.Model</h5>
+                                <div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Chip</span><span>@values.Chip</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Memory</span><span>@values.Memory</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Memory Interface</span><span>@values.Memory_Interface</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span>Tdp</span><span>@values.Tdp</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button class="btn btnpc btn-primary m-1">Select</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+@code {
+    public int Id { get; set; }
+    public string Brand { get; set; }
+    public string Model { get; set; }
+    public string Chip { get; set; }
+    public float Memory { get; set; }
+    public string Memory_Interface { get; set; }
+    public int Tdp { get; set; }
+
+    private IEnumerable<GPU> Graphics;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Graphics = await select.GetGPUAsync();
+    }
+}

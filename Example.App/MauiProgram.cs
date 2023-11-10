@@ -20,7 +20,9 @@ namespace Example.App
             builder.Services.AddBlazorWebViewDeveloperTools();
 #endif
             builder.Services.AddSingleton<WeatherForecastService>();
-
+            builder.Services.AddScoped<Insert>();
+            builder.Services.AddScoped<Login>();
+            builder.Services.AddScoped<Select>();
             return builder.Build();
         }
     }

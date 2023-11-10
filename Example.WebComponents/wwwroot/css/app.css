@@ -294,6 +294,13 @@ a, .btn-link {
         background: #441CFF;
         outline: 0;
     }
- 
 
- 
+.heading {
+    font-size: 50px;
+    font-weight: 600;
+    font-style: oblique;
+    background-image: linear-gradient(to left, #553c9a, #b393d3);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}

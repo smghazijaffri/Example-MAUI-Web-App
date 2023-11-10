@@ -1,19 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:wc="clr-namespace:Example.WebComponents;assembly=Example.WebComponents"
-             xmlns:pages="clr-namespace:Example.WebComponents.Pages;assembly=Example.WebComponents"
-             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             android:TabbedPage.ToolbarPlacement="Bottom"
-             android:TabbedPage.IsSmoothScrollEnabled="True"
-             x:Class="Example.App.MainPage"
-             BackgroundColor="White">
+<TabbedPage  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:wc="clr-namespace:Example.WebComponents;assembly=Example.WebComponents"
+            xmlns:pages="clr-namespace:Example.WebComponents.Pages;assembly=Example.WebComponents"
+            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            android:TabbedPage.IsSmoothScrollEnabled="True"
+            x:Class="Example.App.MainPage"
+            BackgroundColor="White">
 
-    <BlazorWebView HostPage="wwwroot/index.html">
-        <BlazorWebView.RootComponents>
-            <RootComponent Selector="#app" ComponentType="{x:Type wc:App}" />
-        </BlazorWebView.RootComponents>
-    </BlazorWebView>
+    <ContentPage Title="Counter">
+        <BlazorWebView HostPage="wwwroot/index.html">
+            <BlazorWebView.RootComponents>
+                <RootComponent Selector="#app" ComponentType="{x:Type pages:PCBuild}" />
+            </BlazorWebView.RootComponents>
+        </BlazorWebView>
+    </ContentPage>
+
+    <ContentPage Title="Android">
+
+    </ContentPage>
 
     <!--<ContentPage Title="Counter">
     <BlazorWebView HostPage="wwwroot/index.html">
@@ -31,4 +37,4 @@
     </BlazorWebView>
     </ContentPage>-->
 
-</ContentPage>
+</TabbedPage>

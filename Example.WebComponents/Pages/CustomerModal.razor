@@ -1,0 +1,72 @@
+﻿@using static Example.WebComponents.Pages.CustomModal;
+@inject NavigationManager navigationManager;
+<!-- InputModal.razor -->
+
+<div class="modal" tabindex="-1" id="inputModal" aria-labelledby="inputModal" aria-hidden="true" style="display: @(IsVisible ? "block" : "none");">
+    <div class="modal-dialog modal-sm p-4">
+        <div class="modal-content" style="border-radius: 30px;">
+            <div class="modal-header heading">
+                <h2 class="modal-title">Customer Details</h2>
+                <button type="button" class="btn-close" @onclick="CloseInputModal" aria-label="Close" style="font-size: 15px"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Input form for Name, Contact, and Date -->
+                <div class="form-group">
+                    <label for="name">Customer ID:</label>
+                    <input type="text" class="form-control" id="id" @bind="model.Id" />
+                </div>
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name" @bind="model.Name" />
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact:</label>
+                    <input type="text" class="form-control" id="contact" @bind="model.Contact" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btnpc btn-secondary m-1" @onclick="CloseInputModal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btnpc btn-primary m-1" @onclick="SaveChanges">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    BuildPcViewModel model = new BuildPcViewModel();
+    private EventCallback<BuildPcViewModel> eventCallbackInstance;
+
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+    private void CloseInputModal()
+    {
+        IsVisible = false;
+        IsVisibleChanged.InvokeAsync(IsVisible);
+        navigationManager.NavigateTo("/");
+    }
+    private void CloseModal()
+    {
+        IsVisible = false;
+        IsVisibleChanged.InvokeAsync(IsVisible);
+    }
+
+    private void SaveChanges()
+    {
+        if(model.Id == null)
+        {
+            Random random = new Random();
+            int randomNumber = random.Next(101);
+            model.Id = (model.Name + "#" + model.Contact + "#" + Convert.ToString(randomNumber));
+        }
+        OnSaveChanges.InvokeAsync(model);
+        // Close the modal after saving changes
+        CloseModal();
+    }
+
+    [Parameter]
+    public EventCallback<BuildPcViewModel> OnSaveChanges { get; set; }
+    
+}

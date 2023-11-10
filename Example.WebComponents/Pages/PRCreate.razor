@@ -179,13 +179,13 @@
         }
     }
 
-    private record SimpleCallback(Action Callback) : IHandleEvent
-    {
-        public static Action Create(Action callback) => new SimpleCallback(callback).Invoke;
+    // private record SimpleCallback(Action Callback) : IHandleEvent
+    // {
+    //     public static Action Create(Action callback) => new SimpleCallback(callback).Invoke;
 
-        public void Invoke() => Callback();
-        public Task HandleEventAsync(EventCallbackWorkItem item, object arg) => Task.CompletedTask;
-    }
+    //     public void Invoke() => Callback();
+    //     public Task HandleEventAsync(EventCallbackWorkItem item, object arg) => Task.CompletedTask;
+    // }
 
     // private void ToggleAllRowsSelection()
     // {
