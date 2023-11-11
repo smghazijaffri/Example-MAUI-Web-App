@@ -1,16 +1,14 @@
-﻿@page "/processor";
-@using Microsoft.EntityFrameworkCore;
-@using Microsoft.Extensions.Logging;
-@inject Example.WebComponents.Data.Select select
+﻿@inject Example.WebComponents.Data.Select select;
+@inject Example.WebComponents.Data.Insert insert;
 
 <section>
     <div class="container py-5">
         @if (Processors != null)
         {
-            <div class="d-flex flex-wrap">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
                 @foreach (var values in Processors)
                 {
-                    <div class="col-md-4 col-lg-4 col-xl-4 p-2">
+                    <div class="col mb-4">
                         <div class="card text-black">
                             <div class="card-body">
                                 <h5 class="card-title">@values.Brand</h5>
@@ -30,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btnpc btn-primary m-1">Select</button>
+                                    <button class="btn btnpc btn-primary m-1" @onclick="() => Select(values)">Select</button>
                                 </div>
                             </div>
                         </div>
@@ -55,5 +53,11 @@
     protected override async Task OnInitializedAsync()
     {
         Processors = await select.GetProcessorsAsync();
+    }
+    private async Task Select(Processor selectedProcessor)
+    {
+        string component = "Processor";
+        string combinedValue = $"{selectedProcessor.Brand} {selectedProcessor.Model}";
+        await insert.InsertIntoCustomBuilt(combinedValue, component);
     }
 }

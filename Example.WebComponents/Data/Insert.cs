@@ -55,7 +55,7 @@ namespace Example.WebComponents.Data
             }
         }
 
-        public async Task InsertIntoCustomBuilt(string combinedValue)
+        public async Task InsertIntoCustomBuilt(string combinedValue, string component)
         {
             using (SqlConnection con = GetSqlConnection())
             {
@@ -63,23 +63,21 @@ namespace Example.WebComponents.Data
 
                 // First, check if a record with the given 'name' exists
                 string checkQuery = "SELECT COUNT(*) FROM Custom_Built WHERE (Name = @Name AND Contact = @Contact AND Id = @Id)";
-                int count = await con.ExecuteScalarAsync<int>(checkQuery, new { Motherboard = combinedValue, Name = Customer_Name, Contact = Customer_Contact, Id = Customer_Id });
+                int count = await con.ExecuteScalarAsync<int>(checkQuery, new { Name = Customer_Name, Contact = Customer_Contact, Id = Customer_Id });
 
                 if (count > 0)
                 {
                     // If a record with the given 'name' exists, update it
-                    string updateQuery = "UPDATE Custom_Built SET Motherboard = @Motherboard WHERE (Name = @Name AND Contact = @Contact AND Id = @Id)";
-                    await con.ExecuteAsync(updateQuery, new { Motherboard = combinedValue, Name = Customer_Name, Contact = Customer_Contact, Id = Customer_Id });
+                    string updateQuery = $"UPDATE Custom_Built SET {component} = @Item WHERE (Name = @Name AND Contact = @Contact AND Id = @Id)";
+                    await con.ExecuteAsync(updateQuery, new { Item = combinedValue, Name = Customer_Name, Contact = Customer_Contact, Id = Customer_Id });
                 }
                 else
                 {
                     // If a record with the given 'name' doesn't exist, insert a new record
-                    string insertQuery = "INSERT INTO Custom_Built (Motherboard) VALUES (@Motherboard)";
-                    await con.ExecuteAsync(insertQuery, new { Motherboard = combinedValue });
+                    string insertQuery = $"INSERT INTO Custom_Built ({component}) VALUES (@Item)";
+                    await con.ExecuteAsync(insertQuery, new { Item = combinedValue, Name = Customer_Name, Contact = Customer_Contact, Id = Customer_Id });
                 }
             }
-
         }
-
     }
 }

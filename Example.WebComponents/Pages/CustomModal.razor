@@ -1,4 +1,5 @@
-﻿<!-- Modal -->
+﻿@using System.ComponentModel.DataAnnotations;
+<!-- Modal -->
 <div class="modal" tabindex="-1" id="quickViewModal" aria-labelledby="quickViewModal" aria-hidden="true" style="display: @(IsVisible ? "block" : "none");">
     <div class="modal-dialog modal-fullscreen ps-3 pt-3 pe-4 pb-3">
         <div class="modal-content" style="border-radius: 30px;">
@@ -41,8 +42,8 @@
                 }
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btnpc m-1" @onclick="CloseQuickView" aria-label="Close">Close</button>
-                <button type="button" class="btn btn-primary btnpc m-1" @onclick="CloseQuickView">Save changes</button>
+                <button type="button" class="btn btn-secondary btnpc m-1" @onclick="CloseQuickView" aria-label="Close">Cancel</button>
+                <button type="button" class="btn btn-primary btnpc m-1" @onclick="CloseQuickView">Submit</button>
             </div>
         </div>
     </div>
@@ -55,7 +56,9 @@
         public bool IsModalOpen { get; set; }
         public string selectedComponentName { get; set; }
         public string Id { get; set; }
+        [Required]
         public string Contact { get; set; }
+        [Required]
         public string Name { get; set; }
     }
 

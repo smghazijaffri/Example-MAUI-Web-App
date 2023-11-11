@@ -1,14 +1,14 @@
-﻿@page "/graphics card";
-@inject Example.WebComponents.Data.Select select
+﻿@inject Example.WebComponents.Data.Select select;
+@inject Example.WebComponents.Data.Insert insert;
 
 <section>
     <div class="container py-5">
         @if (Graphics != null)
         {
-            <div class="d-flex flex-wrap">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4">
                 @foreach (var values in Graphics)
                 {
-                    <div class="col-md-4 col-lg-4 col-xl-4 p-2">
+                    <div class="col mb-4">
                         <div class="card text-black">
                             <div class="card-body">
                                 <h5 class="card-title">@values.Brand</h5>
@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="btn btnpc btn-primary m-1">Select</button>
+                                    <button class="btn btnpc btn-primary m-1" @onclick="() => Select(values)">Select</button>
                                 </div>
                             </div>
                         </div>
@@ -53,5 +53,11 @@
     protected override async Task OnInitializedAsync()
     {
         Graphics = await select.GetGPUAsync();
+    }
+    private async Task Select(GPU selectedGPU)
+    {
+        string component = "Graphics_Card";
+        string combinedValue = $"{selectedGPU.Brand} {selectedGPU.Model}";
+        await insert.InsertIntoCustomBuilt(combinedValue, component);
     }
 }
