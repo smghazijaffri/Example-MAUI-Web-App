@@ -10,21 +10,7 @@ namespace Example.WebComponents.Data
         string Customer_Name { get; set; }
         string Customer_Contact { get; set; }
         string Customer_Id { get; set; }
-        public void insert(int prnum, string ven, string item, int quan, DateTime reqdat)
-        {
-            using (SqlConnection con = GetSqlConnection())
-            {
-                con.Open();
-                SqlCommand cmd;
-                string formattedDate = reqdat.ToString("yyyy-MM-dd");
 
-                string sqlQuery = $"INSERT INTO PR1 (PRnumber, Vendor, Item, Quantity, Reqdate) VALUES ('{prnum}', '{ven}', '{item}', '{quan}', '{formattedDate}')";
-                cmd = new SqlCommand(sqlQuery, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
-
-            }
-        }
         public async Task InsertIntoCustomBuilt(string id, string name, string contact)
         {
             using (SqlConnection con = GetSqlConnection())
@@ -77,6 +63,20 @@ namespace Example.WebComponents.Data
                     string insertQuery = $"INSERT INTO Custom_Built ({component}) VALUES (@Item)";
                     await con.ExecuteAsync(insertQuery, new { Item = combinedValue, Name = Customer_Name, Contact = Customer_Contact, Id = Customer_Id });
                 }
+            }
+        }
+
+        public async Task PRInsert(int prnum, string vendor, string item, string quantity, string uom, DateTime creationdate, DateTime reqdat)
+        {
+            using (SqlConnection con = GetSqlConnection())
+            {
+                con.Open();
+
+                string formattedDate = reqdat.ToString("yyyy-MM-dd");
+                string format = creationdate.ToString("yyyy-MM-dd");
+
+                string sqlQuery = $"INSERT INTO PR1 (PRnumber, Vendor, Item, Quantity, UOM, CreationDate, Reqdate) VALUES (@PRNum, @Vend, @Item, @Quantity, @UOM, @Creation, @Date)";
+                await con.ExecuteAsync(sqlQuery, new { PRNum = prnum, Vend = vendor, Item = item, Quantity = quantity, UOM = uom, Creation = format, Date = reqdat });
             }
         }
     }

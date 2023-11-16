@@ -17,6 +17,7 @@ builder.Services.AddScoped<Insert>();
 builder.Services.AddScoped<Login>();
 builder.Services.AddScoped<Select>();
 builder.Services.AddScoped<Connection>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
